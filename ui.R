@@ -10,16 +10,26 @@ ui <- fluidPage(
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
-      sliderInput("bins",
-                  "Number of bins:",
+      sliderInput("savs",
+                  "Percent SAVS:",
                   min = 1,
-                  max = 50,
-                  value = 30)
+                  max = 5.5,
+                  value = 3.4),
+      sliderInput("symp",
+                  "Percent symptomatic:",
+                  min = 65,
+                  max = 85,
+                  value = 75.6),
+      sliderInput("sts",
+                  "Percent with STS > 10:",
+                  min = 20,
+                  max = 60,
+                  value = 44)
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
-      plotOutput("distPlot")
+      plotOutput("plot")
     )
   )
 )
