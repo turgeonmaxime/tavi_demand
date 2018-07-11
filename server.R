@@ -1,18 +1,23 @@
 # Define server logic required to draw a histogram
 library(tidyverse)
 n_years <- 25
+baseline_pop <- 35370
 
 server <- function(input, output) {
   
-  y <- seq_len(n_years) + 2016
-  x1 <- round(400 * (1.015)^seq_len(n_years))
-  x2 <- c(cumsum(rep(25, n_years)))
-  x3 <- cumsum(c(seq(25, 50, by = 5), 
-                 rep(50, n_years - 6)))
-  x4 <- cumsum(c(seq(25, 150, by = 25), 
-                 rep(150, n_years - 6)))
-  
   output$plot <- renderPlot({
+    # create data
+    eligible_pop <- round(baseline_pop * (input$savs/100) *
+                            (input$symp/100) * (input$sts/100))
+    
+    y <- seq_len(n_years) + 2016
+    x1 <- round(eligible_pop * (1.015)^seq_len(n_years))
+    x2 <- c(cumsum(rep(25, n_years)))
+    x3 <- cumsum(c(seq(25, 50, by = 5), 
+                   rep(50, n_years - 6)))
+    x4 <- cumsum(c(seq(25, 150, by = 25), 
+                   rep(150, n_years - 6)))
+    
     # create dataframe
     dataset <- bind_rows(
       tibble::tibble(
