@@ -5,11 +5,15 @@ library(shiny)
 ui <- fluidPage(
   
   # Application title
-  titlePanel("Old Faithful Geyser Data"),
+  titlePanel("Demand and resources for TAVIs"),
   
   # Sidebar with a slider input for number of bins 
   sidebarLayout(
     sidebarPanel(
+      radioButtons("growth",
+                   "Growth model:",
+                   c("Low", "Medium", "High"),
+                   "High"),
       sliderInput("savs",
                   "Percent SAVS:",
                   min = 1,
@@ -29,7 +33,8 @@ ui <- fluidPage(
     
     # Show a plot of the generated distribution
     mainPanel(
-      plotOutput("plot")
+      plotOutput("plot"),
+      tableOutput("table")
     )
   )
 )
